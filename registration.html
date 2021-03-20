@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>student</title>
+    <style>
+        body{
+            display: grid;
+            justify-items: center;
+        }
+        input{
+            font-size: 1.3em;
+        }
+    </style>
+</head>
+<body>
+    <main>
+       <header>
+            <b><h1>Create<span>Account</span></h1></b>
+       </header>
+        <section id='registration'>
+                <b><h3 class="form-header">Sign up</h3></b>
+            <form method="POST" id="register">
+                <label for="full-name">
+                    Name <br>
+                    <input type="text" id="full-name" placeholder="John Brown" name="name">
+                </label>
+                <br>
+                <label for="u-name">User Name <br>
+                    <input type="text" id="u-name" placeholder="Mr.Brown" name="username">
+                </label>
+                <br>
+                <label for="email">Email <br>
+                    <input type="email" id="email" placeholder="johnbrown@gmail.com" name="email">
+                </label>
+                <br>
+                <label for="password">Password <br>
+                    <input type="password" id="password" placeholder="123456" name="password">
+                </label>
+                <br><br>
+                <input type="button" value="Submit" onclick="submitInfo()">
+                <p>Already have an account? <a href="/login">Login</a></p>
+            </form>
+        </section>
+    </main>
+<script>
+    function submitInfo(){
+        let first_name = document.getElementById("full-name").value;
+        let user_name = document.getElementById("u-name").value;
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+        
+        let info = {
+            fullname: first_name,
+            username: user_name,
+            email: email,
+            password: password
+        }
+        
+
+        fetch('./registration', {
+            method: "POST",
+            "Content-Type": "application/json",
+            body: JSON.stringify(info)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === 5){
+                console.log('Error')
+            }
+            else{
+                window.location.href ="/login"
+            }
+        })
+        .catch(err => {
+            console.log('error is right here', err)
+        })
+    }
+    
+</script>
+<!-- <script src="./script.js"></script> -->
+</body>
+</html>

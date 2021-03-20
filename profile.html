@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>peofile</title>
+    <style>
+        body{
+            display: grid;
+            justify-items: center;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <table>
+            <tr>
+              <th colspan="2">PROFILE</th>
+            </tr>
+            <tr>
+                <td>Full Name</td>
+                <td id="full-name">coming soon</td>
+            </tr>
+            <tr>
+                <td>Username</td>
+                <td id="username">coming soon</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td id="email">coming soon</td>
+            </tr>
+        </table>
+    </main>
+    <script>
+         fetch('/profile-info')
+            .then(resp => resp.json())
+            .then(data => {
+                if(data.status === 0){
+                    document.getElementById('full-name').innerHTML = data.data.fullname;
+                    document.getElementById('username').innerHTML = data.data.username;
+                    document.getElementById('email').innerHTML = data.data.email;
+                }
+            })
+            .catch(err => {
+                console.log('Error:', err)
+            })
+    </script>
+</body>
+</html>

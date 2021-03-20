@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>student</title>
+    <style>
+        body{
+            display: grid;
+            justify-items: center;
+        }
+        input{
+            font-size: 1.3em;
+        }
+    </style>
+</head>
+<body>
+    <main>
+       <header>
+            <b><h1>LOG<span>IN</span></h1></b>
+       </header>
+        <section id='Sign-in'>
+                <b><h3 class="login">Sign In</h3></b>
+            <form method="POST" id="log">
+                <label for="user-name">User Name <br>
+                    <input type="text" id="user-name" placeholder="Mr.Brown" name="username">
+                </label>
+                <br>
+                <label for="confirm-password">Password <br>
+                    <input type="password" id="confirm-password" placeholder="123456" name="password">
+                </label>
+                <br><br>
+                <input type="button" value="Submit" onclick="login()">
+                <p>Don't have an account? <a href="/">Register</a></p>
+            </form>
+        </section>
+    </main>
+    <script>
+        function login(){
+            let user_name = document.getElementById("user-name").value;
+            let password = document.getElementById("confirm-password").value;
+            
+            let student = {
+                username: user_name,
+                password: password
+            }
+            
+            fetch('/login', {
+                method: "POST",
+                "Content-Type": "application/json",
+                body: JSON.stringify(student)
+            })
+            .then(resp => resp.json())
+            .then(data => {
+                if(data.status === 0){
+                    window.location.href ="/profile"
+                }
+            })
+            .catch(err => {
+                console.log('Error:', err)
+            })
+        }        
+    </script>
+</body>
+</html>
